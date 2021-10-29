@@ -247,8 +247,19 @@ roomRouter.post("/leaveroom", authenticate, (req, res) => {
                 error: "Room not found"
             })
         }
-        res.status(200).json({
-            message: "Room left successfully",
+        User.findByIdAndUpdate(_id, {
+            $pull: {
+                classesasstudent: roomdetails._id
+            }
+        }).then((userdetails, error) => {
+            if(error){
+                return res.status(501).json({
+                    error: "Action failed"
+                })
+            }
+            return res.status(200).json({
+                message: "Room left successfully",
+            })
         })
 
     })

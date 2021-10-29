@@ -5,7 +5,7 @@ const Room = mongoose.model('rooms')
 const authenticate = require('../Middlewares/usermiddleware')
 const ownerauthenticate = require('../Middlewares/roomownermiddleware')
 const bcrypt = require('bcrypt')
-const sendMail = require('../Functions/mailer');
+const sendMail = require('../Functions/mailer').sendMail
 const teacherinvitation = require('../Mail templates/Teacherjoininvitation');
 
 roomRouter.get("/myrooms", authenticate, (req, res) => {

@@ -1,4 +1,7 @@
-<!DOCTYPE html>
+const AnnouncementMailtemplate = (Announcedby, room_name, time, content) => {
+    return (
+        `
+        <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -14,20 +17,16 @@
 		<br />
 		<div style="max-width: 800px;margin:10px auto;margin-top:50px;margin-bottom:20px;border-radius:10px">
 			<div style="font-size:25px">
-				New work has been assigned to you by ${Assignedby} on ${room_name} at ${time}
+				An announcement has been made by ${Announcedby} on ${room_name} at ${time}
 			</div>
 			<div style="background-color:dodgerblue;color:white;padding:10px;border-radius: 10px;margin-top: 30px;">
-				<div style="font-size:25px">${content.title}<div>
-						<div style="font-size:20px;padding:20px">${content.description}<div>
-							</div>
-						</div>
-
-					</div>
-
-				</div>
+			<div style="font-size:25px">${content.title}<div>
+			<div style="font-size:20px;padding:20px">${content.description}<div>
 			</div>
-			<div style="display:flex;flex-direction:row;justify-content:space-between;margin-top:30px">
-				<div></div>
-				<div style="font-size:18px">Due Date: ${due}</div>
-			</div>
+		</div>
+	</div>
 </body>
+        `
+    )
+}
+module.exports = AnnouncementMailtemplate;

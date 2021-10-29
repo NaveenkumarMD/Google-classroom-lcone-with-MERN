@@ -5,7 +5,7 @@ const Users = mongoose.model('users');
 const Announcements = mongoose.model('announcements');
 const Room = mongoose.model('rooms');
 const Works = mongoose.model('works');
-
+const AnnouncementMail=require('../Functions/mailer').AnnouncementMail
 announcementRouter.get("/roomposts", authenticate, async (req, res) => {
     const { _id } = req.user
     const { room } = req.body
@@ -48,7 +48,7 @@ announcementRouter.get("/roomposts", authenticate, async (req, res) => {
 })
 
 announcementRouter.post("/createannouncement", authenticate, (req, res) => {
-    const { _id } = req.user
+    const { _id,name } = req.user
     const { title, description, room } = req.body
     if (!title || !description || !room) {
         return res.status(422).json({ error: "Please fill all the fields" })
@@ -59,23 +59,43 @@ announcementRouter.post("/createannouncement", authenticate, (req, res) => {
         room,
         createdby: _id
     })
-    Room.findById(room).then(((roomdata, error) => {
+    Room.findById(room).populate('teachers').populate('students').then(((roomdata, error) => {
         if (error) {
             return res.status(422).json({
                 error: "Room not found"
             })
         }
-        if (!roomdata.students.includes(_id) && !roomdata.teachers.includes(_id)) {
-            return res.status(402).json({
-                error: "You are not a member of the room"
-            })
-        }
+        let usersarray=[]
+        let usersid=[]
+        roomdata.students.forEach(student => {
+            usersarray.push(student.email)
+            usersid.push(student._id)
+        })
+        roomdata.teachers.forEach(teacher => {
+            usersarray.push(teacher.email)
+            usersid.push(teacher._id)
+        })
+
         newAnnouncement.save().then((announcement, error) => {
             if (error) {
                 return res.status(422).json({
                     error: "Announcement not created"
                 })
             }
+            let now=new Date()
+            let time=now.getHours()+":"+now.getMinutes()+":"+now.getSeconds()
+            const maildata={
+                subject:`Announcement has been made by ${name} in ${roomdata.room_name} on ${time}`,
+                Announcedby:name,
+                room_name:roomdata.room_name,
+                time:time,
+                content:{
+                    title:title,
+                    description:description,
+                },
+                users:usersarray
+            }
+            AnnouncementMail(maildata)
             return res.json({
                 message: "Announcement created successfully",
             })

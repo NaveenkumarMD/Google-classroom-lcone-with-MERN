@@ -23,7 +23,13 @@ const RoomOwnerMiddleware = (req, res, next) => {
                     error: "You need owner access to delete a room or the room is not found"
                 })
             }
+            if(!room){
+                return res.status(404).json({
+                    error: "No room found"
+                })
+            }
             req.room = room
+            console.log(req.room)
             next()
         })
 

@@ -16,22 +16,19 @@ const userschema = new Schema({
         type: String,
         required: true
     },
-    classesasstudent:{
-        type: [
-            {
-                type: Schema.Types.ObjectId,
-                ref:'rooms'
-            }
-        ]
-    },
-    classesasteacher:{
-        type:[
-            {
-                type: Schema.Types.ObjectId,
-                ref:'rooms'
-            }
-        ]
-    }
+    classesasstudent: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'rooms'
+        }
+    ]
+    ,
+    classesasteacher: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'rooms'
+        }
+    ]
 
 })
 mongoose.model('users', userschema);

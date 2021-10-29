@@ -8,12 +8,29 @@ const worksSchema=new Schema({
     },
     description:{
         type:String,
+        default:" "
+    },
+    room:{
+        type:Schema.Types.ObjectId,
+        ref:'rooms'
+    },
+    files:{
+        type:Array,
+        default:[]
+    },
+    createdon:{
+        type:Date,
+        default:Date.now
+    },
+    createdby:{
+        type:Schema.Types.ObjectId,
+        ref:'users'
+    },
+    due:{
+        type:Date,
         required:true
     },
-    file:{
-        type:String,
-    },
-    SubmittedFiles:{
+    submittedFiles:{
         type:[
             {
                 user:{
@@ -21,7 +38,11 @@ const worksSchema=new Schema({
                     ref:'users'
                 },
                 file:{
-                    type:String
+                    type:Array
+                },
+                time:{
+                    type:Date,
+                    default:Date.now
                 }
             }
         ]

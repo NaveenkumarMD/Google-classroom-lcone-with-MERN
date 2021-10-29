@@ -9,10 +9,6 @@ const announcemensSchema=new Schema({
     description:{
         type:String,
     },
-    date:{
-        type:Date,
-        default:Date.now
-    },
     room:{
         type:Schema.Types.ObjectId,
         required:true,
@@ -22,6 +18,10 @@ const announcemensSchema=new Schema({
         type:Schema.Types.ObjectId,
         ref:'users',
         required:true
+    },
+    createdon:{
+        default:Date.now,
+        type:Date
     }
 
 })

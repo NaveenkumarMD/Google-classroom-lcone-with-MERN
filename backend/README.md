@@ -1,5 +1,11 @@
 # Backend using Mongodb and Express
+## Installation
 
+* ### Prerequisites
+        Node js
+        npm
+* ### Installation
+        yarn install
 ## Modules used
 
 <table>

@@ -1,0 +1,65 @@
+.card-before-container{
+    border:1px solid rgb(206, 209, 214);
+    height:70px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 10px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+.card-after-container{
+    border:1px solid rgb(206, 209, 214);
+    height:250px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    position: relative;
+}
+.note-options{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    position: absolute;
+    bottom: 0;
+    right:0;
+    margin:15px
+}
+.note-options-base{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 10px;
+}
+.note-options-base>div:nth-child(1){
+    margin-right: 30px;
+    color: rgb(109, 111, 116);
+    font-weight: 500;
+    cursor: pointer;
+}
+.note-options-base>div:nth-child(2){
+    margin-right: 10px;
+    background-color: green;
+    color: white;
+    padding:5px 20px ;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+}
+.input-container{
+    margin:20px;
+    height:140px;
+    background-color: rgb(221, 235, 221);
+    border-radius: 10px;
+    padding:10px;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgb(72, 73, 77);
+
+}
+.input-container:focus{
+    outline: none;
+}

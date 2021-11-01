@@ -1,0 +1,78 @@
+.classes-home{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+.class-card{
+    width: 320px;
+    border:1px solid rgb(168, 172, 168);
+    margin:20px;
+    height: 340px;
+    border-radius: 10px;
+    padding:0px;
+    position: relative;
+}
+.card-top{
+    background-image: url('../Assets/classimage.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 130px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: black;
+    padding:0px
+}
+.card-bottom{
+    position: absolute;
+    border-top: 1px solid rgb(168, 172, 168);
+    bottom:0;
+    height: 50px;
+    right:0px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.card-bottom>.icons{
+    margin-right: 10px;
+}
+.works-icon{
+    margin: 8px;
+}
+.classname{
+    font-size:24px;
+    color:white;
+    font-weight: 500;
+    margin:15px
+}
+.owner_name{
+    color: white;
+    margin:15px;
+    margin-top: 45px;
+    font-size: 16px;
+}
+.top-bar-options{
+    margin-left:5%;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+
+}
+.top-bar-options >span{
+    color:rgb(56,142,60);
+    font-size: 16px;
+    font-weight: 500;
+    margin:10px;
+    margin-right: 20px;
+}
+.class-card:hover{
+    box-shadow: 0px 0px 30px rgb(179, 190, 180);
+    cursor: pointer;
+}

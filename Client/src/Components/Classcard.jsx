@@ -1,9 +1,11 @@
 import React from 'react'
 import Worksicon from '../Assets/works.png'
 import driveicon from '../Assets/drive.png'
+import {useHistory} from 'react-router-dom'
 function Classcard() {
+    const history = useHistory()
     return (
-        <div className="class-card">
+        <div className="class-card" onClick={()=>history.push("/room/stream")}>
             <div className="card-top">
             <div style={{width:"100%",height:"100%",position:"absolute"}}>
                     <div className="classname">

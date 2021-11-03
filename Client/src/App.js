@@ -1,6 +1,7 @@
 import React from 'react'
 import {BrowserRouter,Switch,Route} from 'react-router-dom'
 import Classwork from './Screens/Classwork'
+import Createroom from './Screens/Createroom'
 import Home from './Screens/Home'
 import Login from './Screens/Login'
 import People from './Screens/People'
@@ -15,6 +16,7 @@ function App() {
         <Route path='/login'exact component={Login}/>
         <Route path='/signup'exact component={Signup}/>
         <Route path="/room/*" component={Roomroute} />
+        <Route path="/createroom" component={Createroom}/>
       </Switch>
     </BrowserRouter>
 

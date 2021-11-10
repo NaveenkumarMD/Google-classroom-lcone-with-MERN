@@ -50,7 +50,16 @@ function Home() {
     setIsOpen(false);
     document.getElementById('plus').style.zIndex = 10;
   }
+
   useEffect(() => {
+    try {
+      const token=localStorage.getItem('token')
+      if (!token){
+        return history.push("/login")
+      }
+    } catch (err) {
+        return history.push("/login")
+    }
     fetch('/myrooms', {
       method: 'GET',
       headers: {

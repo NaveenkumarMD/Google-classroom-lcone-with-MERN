@@ -20,6 +20,10 @@ const roomschema=new Schema({
     },
     room_owner:{
         type:Schema.Types.ObjectId,
+        ref:'users'
+    },
+    room_owner_name:{
+        type:String,
         required:true
     },
     teacher_invites:{

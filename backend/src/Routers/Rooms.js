@@ -8,12 +8,32 @@ const bcrypt = require('bcrypt')
 const sendMail = require('../Functions/mailer').sendMail
 const teacherinvitation = require('../Mail templates/Teacherjoininvitation');
 
+//get room info
+roomRouter.post("/getroom",authenticate,(req,res)=>{
+    console.log("getting roominfo is running")
+    const {_id}=req.user
+    const {id}=req.body
+
+    Room.findById(id).populate("teachers",["name","email"]).populate("students",["name","email"]).then((roomdata,error)=>{
+        if(error){
+            return res.json({
+                error:"No room found with the name"
+            })
+        }
+        res.json({
+            message:"success",
+            data:roomdata
+        })
+    })
+})
 roomRouter.get("/myrooms", authenticate, (req, res) => {
+    console.log("getting rooms is running")
     const { _id } = req.user
     User.findById(_id)
-        .populate('classesasstudent', ['room_id', 'logo', 'room_owner', 'room_name'])
-        .populate('classesasteacher', ['room_id', 'logo', 'room_owner', 'room_name'])
+        .populate('classesasstudent', ['room_id', 'logo', 'room_owner','room_owner_name', 'room_name'])
+        .populate('classesasteacher', ['room_id', 'logo', 'room_owner', 'room_owner_name','room_name'])
         .then((roomsdata, error) => {
+            
             if (error) {
                 return res.status(500).json({ error: error })
             }
@@ -31,6 +51,7 @@ roomRouter.post("/createroom", authenticate, (req, res) => {
     const newRoom = Room({
         room_name: room_name,
         room_owner: req.user._id,
+        room_owner_name: req.user.name,
         teachers: [req.user._id],
         room_id: Math.floor(Math.random() * 10000) + 10000,
         logo: null,
@@ -197,6 +218,8 @@ roomRouter.delete("/deleteroom", ownerauthenticate, (req, res) => {
 })
 
 roomRouter.post("/joinroom", authenticate, (req, res) => {
+    console.log("hello")
+    console.log(req.body)
     const { _id } = req.user
     const { room_id } = req.body
     Room.findOneAndUpdate({ room_id: room_id }, {

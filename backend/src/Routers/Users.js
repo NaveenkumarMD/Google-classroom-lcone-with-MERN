@@ -59,7 +59,8 @@ userRouter.post('/login',(req,res)=>{
                 const token=jwt.sign({id:user._id},process.env.JWT_SECRET_KEY)
                 res.status(200).json({
                     message:'login successful',
-                    token:token
+                    token:token,
+                    user:user
                 })
             }else{
                 return res.status(400).json({

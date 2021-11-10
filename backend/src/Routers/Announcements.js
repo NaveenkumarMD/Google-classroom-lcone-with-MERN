@@ -6,7 +6,8 @@ const Announcements = mongoose.model('announcements');
 const Room = mongoose.model('rooms');
 const Works = mongoose.model('works');
 const AnnouncementMail=require('../Functions/mailer').AnnouncementMail
-announcementRouter.get("/roomposts", authenticate, async (req, res) => {
+announcementRouter.post("/roomposts", authenticate, async (req, res) => {
+    console.log("Getting works data")
     const { _id } = req.user
     const { room } = req.body
     console.log(room)
@@ -14,7 +15,7 @@ announcementRouter.get("/roomposts", authenticate, async (req, res) => {
     let announcementsarray = []
     let worksarray = []
     try {
-        const announcements = await Announcements.find({room:String(room)})
+        const announcements = await Announcements.find({room:String(room)}).populate('createdby',['name'])
         for (let announcement of announcements) {
             console.log(announcement)
             announcementsarray.push(announcement)
@@ -43,14 +44,15 @@ announcementRouter.get("/roomposts", authenticate, async (req, res) => {
         return new Date(b.createdOn) - new Date(a.createdOn)
     })
     return res.status(200).json({
-        data
+        'message':"success",
+        data:data
     })
 })
 
 announcementRouter.post("/createannouncement", authenticate, (req, res) => {
     const { _id,name } = req.user
     const { title, description, room } = req.body
-    if (!title || !description || !room) {
+    if (!title  || !room) {
         return res.status(422).json({ error: "Please fill all the fields" })
     }
     const newAnnouncement = new Announcements({

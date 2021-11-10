@@ -112,18 +112,22 @@
     flex-basis: 80%;
     margin-left:10px
 }
-.stream-card{
+.stream-card-container{
     border:1px solid rgb(206, 209, 214);
-    height:70px;
+    height:auto;
     border-radius: 10px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+.stream-card{
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding-left: 10px;
-    margin-bottom: 20px;
-    cursor: pointer;
+    padding: 10px 10px;
+    margin-bottom: 0px;  
+      
 }
-.stream-card:hover{
+.stream-card-container:hover{
     box-shadow: 0 0 10px 1px rgba(168, 170, 173,.4);
 }
 .icon-container{
@@ -154,4 +158,9 @@
     font-weight: 400;
     margin-left:20px;
     font-size: 13px;
+}
+.card-content{
+    font-size: 14px;
+    color:rgb(96, 99, 99);
+    padding:10px 30px;
 }

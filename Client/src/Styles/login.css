@@ -19,6 +19,10 @@
     font-weight: 400;
     color:rgb(95, 99, 104)
 }
+.container>.title-description{
+    color:rgb(128, 130, 133);
+    font-weight:400;
+}
 .input{
     outline:none;
     border:none;

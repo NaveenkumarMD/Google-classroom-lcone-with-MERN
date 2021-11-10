@@ -21,7 +21,7 @@ const AnnouncementMailtemplate = (Announcedby, room_name, time, content) => {
 			</div>
 			<div style="background-color:dodgerblue;color:white;padding:10px;border-radius: 10px;margin-top: 30px;">
 			<div style="font-size:25px">${content.title}<div>
-			<div style="font-size:20px;padding:20px">${content.description}<div>
+			<div style="font-size:20px;padding:20px">${content.description || " "}<div>
 			</div>
 		</div>
 	</div>

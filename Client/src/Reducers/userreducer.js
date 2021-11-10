@@ -1,7 +1,10 @@
-import {LOGIN} from '../Actions/Types'
+import {LOGIN,GETCLASSES,ROOMDATA, ROOMANNOUNCEMTS} from '../Actions/Types'
 const initialState={
     userdata:{},
-    classes:[]
+    classesasstudent:[],
+    classesasteacher:[],
+    roomdata:null,
+    roomannouncements:null
 }
 
 export default (state=initialState,action)=>{
@@ -11,6 +14,25 @@ export default (state=initialState,action)=>{
                 ...state,
                 userdata:action.payload
             }
+        case GETCLASSES:
+            return{
+                ...state,
+                classesasstudent:action.payload.classesasstudent,
+                classesasteacher:action.payload.classesasteacher
+            }
+        case ROOMDATA:
+            return{
+                ...state,
+                roomdata:action.payload
+            }
+        case ROOMANNOUNCEMTS:
+            return{
+                ...state,
+                roomannouncements:action.payload
+            }
+        default:{
+            return state
+        }
     }
 
 }

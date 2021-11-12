@@ -15,6 +15,7 @@ import { store, persistor } from './Store/index'
 import { PersistGate } from 'redux-persist/integration/react'
 import { useSelector, useDispatch } from 'react-redux'
 import JoinroomasStudent from './Screens/JoinroomasStudent'
+import Creatework from './Screens/Creatework'
 function App() {
   return (
     <Provider store={store}>
@@ -89,6 +90,7 @@ function Roomroute() {
         <Route path="/room/work" exact component={Classwork} />
         <Route path="/room/people" exact component={People} />
         <Route path="/room/work/:id" exact component={Workview} />
+        <Route path="/room/creatework" exact component={Creatework} />
       </Switch>
     </div>
   )

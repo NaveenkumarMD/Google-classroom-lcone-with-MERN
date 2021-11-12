@@ -13,7 +13,6 @@ function Stream() {
     const [announcementnote, setannouncementnote] = useState(null)
 
     console.log("Redux state is ", roominfo)
-
     const createannouncement = (content) => {
         fetch('/createannouncement', {
             method: 'POST',
@@ -68,7 +67,7 @@ function Stream() {
                         createannouncement={createannouncement}
                     />
                     {
-                        roomannouncements && roomannouncements.map((announcement, index) => {
+                        roomannouncements.announcements && roomannouncements.announcements.map((announcement, index) => {
                             let time=new Date(announcement.createdon)
                             console.log(time.getDate())
 

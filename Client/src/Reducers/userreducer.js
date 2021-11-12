@@ -4,7 +4,11 @@ const initialState={
     classesasstudent:[],
     classesasteacher:[],
     roomdata:null,
-    roomannouncements:null
+    roomannouncements:{
+        works:[],
+        announcements:[]
+    }
+    
 }
 
 export default (state=initialState,action)=>{

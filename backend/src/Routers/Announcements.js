@@ -17,7 +17,7 @@ announcementRouter.post("/roomposts", authenticate, async (req, res) => {
     try {
         const announcements = await Announcements.find({room:String(room)}).populate('createdby',['name'])
         for (let announcement of announcements) {
-            console.log(announcement)
+
             announcementsarray.push(announcement)
         }
     }
@@ -28,7 +28,7 @@ announcementRouter.post("/roomposts", authenticate, async (req, res) => {
         })
     }
     try {
-        const works = await Works.find({ room: room })
+        const works = await Works.find({ room: room }).populate('createdby', ['name'])
         for (let work of works) {
             worksarray.push(work)
         }
@@ -38,11 +38,12 @@ announcementRouter.post("/roomposts", authenticate, async (req, res) => {
             error: error
         })
     }
-    let data=[...announcementsarray,...worksarray]
+    let data={
+        announcements:announcementsarray,
+        works:worksarray
+    }
     // sort the data array based on createdon
-    data=data.sort((a, b) => {
-        return new Date(b.createdOn) - new Date(a.createdOn)
-    })
+
     return res.status(200).json({
         'message':"success",
         data:data

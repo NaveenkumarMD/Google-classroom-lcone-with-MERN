@@ -6,7 +6,67 @@ import profile2 from '../Assets/profile-2.png'
 import work from '../Assets/notepad.png'
 import send from '../Assets/send.png'
 import Navbarwithprofile from '../Components/Navbarwithprofile'
+import { display } from '@mui/system'
+import { toast } from 'react-toastify'
+import { useParams } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 function Workview() {
+    const { id } = useParams()
+    const state = useSelector(state => state.user.roomannouncements)
+    const [file, setFile] = React.useState(null)
+    const data = state.works.filter(item => item._id === id)[0]
+    const clickInput = () => {
+        document.getElementById('file-input').click()
+    }
+    const getFile = (e) => {
+        console.log(e.target.files[0])
+        setFile(e.target.files[0])
+    }
+    const attachwork = (url) => {
+        fetch("/attachwork", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + localStorage.getItem("token")
+            },
+            body: JSON.stringify({
+                workid: data._id,
+                files: [url]
+            })
+
+        }).then(res => res.json()).then(res => {
+            console.log(res)
+            if (res.error) {
+                return toast.error(res.error)
+            }
+            toast.success("Work Attached")
+        })
+
+            .catch(err => {
+                console.log(err)
+                toast.error("Error in attaching work")
+            })
+    }
+    const upload = () => {
+        const data = new FormData
+        data.append("file", file)
+        data.append("upload_preset", "instagram")
+        data.append("cloud_name", "naveenkumarmd")
+        fetch("https://api.cloudinary.com/v1_1/naveenkumarmd/image/upload", {
+            method: "post",
+            body: data
+        }).then(res => res.json()).then(data => {
+
+            console.log(data.url)
+            toast.success("Image Uploaded Successfully")
+            attachwork(data.url)
+
+        }).catch(error => {
+            console.log("error occured")
+            toast.error("Error Occured")
+        })
+    }
+
     return (
         <div>
             <Navbarwithprofile />
@@ -17,25 +77,30 @@ function Workview() {
                             <img src={work} alt="profile" width="25" />
                         </div>
                     </div>
-                    <div style={{width:"86%"}}>
+                    <div style={{ width: "86%" }}>
                         <div className="work-details-container">
                             <div className="header">
-                                <div>Crypto Assignment</div>
-                                <div>Jatin Singht Aug 8</div>
+                                <div>{data.title}</div>
+                                <div>{data.createdby.name} {new Date(data.createdon).toLocaleString('en-us', { month: 'short' }) + " " + new Date(data.createdon).getDate()}</div>
                                 <div className="flex-space-between metadata">
                                     <div>
-                                        20 points   
+                                        20 points
                                     </div>
                                     <div>
-                                        Due Aug 18
+                                        Due {new Date(data.due).toLocaleString('en-us', { month: 'short' }) + " " + new Date(data.due).getDate()}
                                     </div>
                                 </div>
                             </div>
                             <div className="work-description">
-                            Cryptography with python assignment:
+                                {data.description}
 
-Go to this site https://cryptopals.com/sets/1 and submit the code of the first 5 questions. Make sure to properly comment on your code in your own words.
-You can either submit the individual .py files or a txt or a word document containing all the codes.
+
+                            </div>
+                            <div className="work-description" >
+                                <div style={{ fontSize: "20px" }}>Files</div>
+                                <div>
+                                    <a href={data.files[0]}>File</a>
+                                </div>
                             </div>
                             <div className="class-comments"></div>
                         </div>
@@ -47,10 +112,11 @@ You can either submit the individual .py files or a txt or a word document conta
                             <div>Your work</div>
                             <div>Assigned</div>
                         </div>
-                        <div className="addwor-button">
+                        <input type="file" id="file-input" style={{ display: "none" }} onChange={getFile} />
+                        <div className="addwor-button" onClick={clickInput}>
                             <img src={Addwork} width="23" />   Add
                         </div>
-                        <div className="work-submit-button">
+                        <div className="work-submit-button" onClick={upload}>
                             Turn in
                         </div>
                     </div>
@@ -71,6 +137,7 @@ You can either submit the individual .py files or a txt or a word document conta
                     </div>
                 </div>
             </div>
+
         </div>
     )
 }

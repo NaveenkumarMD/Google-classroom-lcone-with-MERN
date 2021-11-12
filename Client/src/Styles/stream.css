@@ -161,6 +161,25 @@
 }
 .card-content{
     font-size: 14px;
-    color:rgb(96, 99, 99);
-    padding:10px 30px;
+    color:rgb(85, 85, 85);
+    padding:10px 20px;
+    padding-left: 80px;
+    font-weight: 500;
+}
+.create-new-work-container{
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    background-color: #008000;
+    padding:10px 20px;
+    color:white;
+    border-radius: 50px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 10px 3px rgba(203, 211, 204, 0.4);
 }
